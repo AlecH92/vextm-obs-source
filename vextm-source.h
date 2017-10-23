@@ -10,4 +10,5 @@ struct vextm_source_data {
     pthread_mutex_t mutex;
     int run_thread;
     char shmem[10];
+    PROCESS_INFORMATION pi;
 };
