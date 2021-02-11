@@ -6,7 +6,7 @@ SRCS = vextm-source.c \
 	   colorbars.c
 
 OBS_SOURCE := /mnt/c/Users/Dave/git/obs-studio
-OBS_INSTALL := '/mnt/c/Program Files (x86)/obs-studio'
+OBS_INSTALL := '/mnt/c/Program Files/obs-studio'
 
 CC = x86_64-w64-mingw32-gcc
 STRIP = x86_64-w64-mingw32-strip

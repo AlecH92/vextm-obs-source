@@ -20,7 +20,7 @@ First, ensure you are using the 64-bit version of OBS Studio. The 32-bit Windows
 
 The plugin is distributed as a ZIP file. To install, unzip the downloaded file to the OBS Studio installation directory, typically:
 
-> C:\Program Files (x86)\obs-studio
+> C:\Program Files\obs-studio
 
 After that, just restart OBS Studio and it should load the new plugin.
 
