@@ -12,7 +12,7 @@ If you think you have found a bug, please [log an issue](https://gitlab.com/dwab
 
 ## Download
 
-Binaries for Windows 64 bit are available in the [Tags](https://gitlab.com/dwabtech/vextm-obs-source/tags) section.
+Binaries for Windows 64 bit are available in the [Releases](https://gitlab.com/dwabtech/vextm-obs-source/-/releases) section.
 
 ## Installation
 
