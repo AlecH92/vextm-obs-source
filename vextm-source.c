@@ -52,6 +52,10 @@ static obs_properties_t* vextm_source_get_properties(void* data) {
             obs_module_text("VexTmPassword"),
             OBS_TEXT_PASSWORD);
 
+    // Overlay mode
+    obs_properties_add_bool(props, "overlay",
+            obs_module_text("VexTmOverlayMode"));
+
     // Screen type selection for this display instance
     obs_property_t* screen;
     screen = obs_properties_add_list(props, "screen",
@@ -105,6 +109,7 @@ static void vextm_source_get_defaults(obs_data_t* settings) {
     obs_data_set_default_string(settings, "server", "");
     obs_data_set_default_string(settings, "password", "");
     obs_data_set_default_int(settings, "screen", 0);
+    obs_data_set_default_bool(settings, "overlay", true);
     obs_data_set_default_int(settings, "fieldset", 0);
 }
 
@@ -115,14 +120,16 @@ static void vextm_source_get_defaults(obs_data_t* settings) {
 static void vextm_source_update(void* data, obs_data_t* settings) {
     struct vextm_source_data* context = data;
     long screen = obs_data_get_int(settings, "screen");
+    bool overlay = obs_data_get_bool(settings, "overlay");
     const char* server = (char*) obs_data_get_string(settings, "server");
     const char* password = (char*) obs_data_get_string(settings, "password");
     long fieldset = obs_data_get_int(settings, "fieldset");
 
     char cmd[256];
-    snprintf(cmd, 256, "%s --shmem %s --checkversion 0 --preview 0 --kiosk 1",
+    snprintf(cmd, 256, "%s --shmem %s --checkversion 0 --preview 0 --kiosk 1 --overlay %d",
             obs_data_get_string(settings, "display"),
-            context->shmem);
+            context->shmem,
+            overlay);
 
     if(strlen(server) > 0) {
         snprintf(cmd, 256, "%s --server %s", cmd, server);
