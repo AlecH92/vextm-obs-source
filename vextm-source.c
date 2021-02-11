@@ -190,6 +190,7 @@ static struct obs_source_info vextm_source_info = {
     .id             = "vextm_source",
     .type           = OBS_SOURCE_TYPE_INPUT,
     .output_flags   = OBS_SOURCE_ASYNC_VIDEO,
+    .icon_type      = OBS_ICON_TYPE_DESKTOP_CAPTURE,
     .get_name       = vextm_source_get_name,
     .create         = vextm_source_create,
     .destroy        = vextm_source_destroy,
