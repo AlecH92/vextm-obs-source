@@ -17,6 +17,9 @@
 // associated with the ID but no other screens).
 #define INTRO_TIMER_COMBO 1000
 #define RANKINGS_ALLIANCE_BRACKET_COMBO 1001
+#define FIELD_TIMER_ONLY 1002
+#define AUDIENCE_ONLY 1003
+#define PIT_ONLY 1004
 
 // Static helper methods defined at the end of the file
 static char* get_dirname(char* path);
@@ -93,10 +96,29 @@ static obs_properties_t* vextm_source_get_properties(void* data) {
             obs_module_text("VexTmScreenSchedule"), 13);
     obs_property_list_add_int(screen,
             obs_module_text("VexTmScreenInspection"), 15);
+    obs_property_list_add_int(screen,
+            obs_module_text("VexTmScreenFieldTimer"),
+            FIELD_TIMER_ONLY);
+    obs_property_list_add_int(screen,
+            obs_module_text("VexTmScreenAudience"),
+            AUDIENCE_ONLY);
+    obs_property_list_add_int(screen,
+            obs_module_text("VexTmScreenPit"),
+            PIT_ONLY);
 
     // Field set
     obs_properties_add_int(props, "fieldset",
             obs_module_text("VexTmFieldSet"),
+            0, 20, 1);
+
+    // Field id
+    obs_properties_add_int(props, "fieldid",
+            obs_module_text("VexTmFieldId"),
+            0, 20, 1);
+
+    // Pit display id
+    obs_properties_add_int(props, "pitdisplayid",
+            obs_module_text("VexTmPitId"),
             0, 20, 1);
 
     return props;
@@ -111,6 +133,8 @@ static void vextm_source_get_defaults(obs_data_t* settings) {
     obs_data_set_default_int(settings, "screen", 0);
     obs_data_set_default_bool(settings, "overlay", true);
     obs_data_set_default_int(settings, "fieldset", 0);
+    obs_data_set_default_int(settings, "fieldid", 0);
+    obs_data_set_default_int(settings, "pitdisplayid", 0);
 }
 
 // Function update is called when any source settings are updated. For this
@@ -124,6 +148,8 @@ static void vextm_source_update(void* data, obs_data_t* settings) {
     const char* server = (char*) obs_data_get_string(settings, "server");
     const char* password = (char*) obs_data_get_string(settings, "password");
     long fieldset = obs_data_get_int(settings, "fieldset");
+    long fieldid = obs_data_get_int(settings, "fieldid");
+    long pitdisplayid = obs_data_get_int(settings, "pitdisplayid");
 
     char cmd[256];
     snprintf(cmd, 256, "%s --shmem %s --checkversion 0 --preview 0 --kiosk 1 --overlay %d",
@@ -146,6 +172,15 @@ static void vextm_source_update(void* data, obs_data_t* settings) {
         // Special case for rankings + alliance selection + elim bracket
         snprintf(cmd, 256, "%s --onlyscreen 5 --onlyscreen 7 " \
                 "--onlyscreen 8 --onlyscreen 13", cmd);
+    } else if(screen == FIELD_TIMER_ONLY) {
+        // Special case for rankings + alliance selection + elim bracket
+        snprintf(cmd, 256, "%s --field ", cmd);
+    } else if(screen == PIT_ONLY) {
+        // Special case for rankings + alliance selection + elim bracket
+        snprintf(cmd, 256, "%s --pit ", cmd);
+    } else if(screen == AUDIENCE_ONLY) {
+        // Special case for rankings + alliance selection + elim bracket
+        snprintf(cmd, 256, "%s --audience ", cmd);
     } else if(screen != 0) {
         // Pin to one screen only
         snprintf(cmd, 256, "%s --onlyscreen %ld", cmd, screen);
@@ -154,6 +189,16 @@ static void vextm_source_update(void* data, obs_data_t* settings) {
     // Field set
     if(fieldset > 0) {
         snprintf(cmd, 256, "%s --fieldsetid %ld", cmd, fieldset);
+    }
+
+    // Field id
+    if(fieldid > 0 && screen == FIELD_TIMER_ONLY) {
+        snprintf(cmd, 256, "%s --fieldid %ld", cmd, fieldid);
+    }
+
+    // Pit display id
+    if(pitdisplayid > 0 && screen == PIT_ONLY) {
+        snprintf(cmd, 256, "%s --pitdisplayid %ld", cmd, pitdisplayid);
     }
 
     info("Starting display with command: %s", cmd);
