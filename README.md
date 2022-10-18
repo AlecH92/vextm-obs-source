@@ -1,5 +1,7 @@
 # vextm-obs-source
 
+Forked from [gitlab](https://gitlab.com/dwabtech/vextm-obs-source.git)
+
 VEX Tournament Manager display source plugin for OBS Studio.
 
 ![Alt Text](screenshot.png "VEX TM Display plugin screenshot")
@@ -8,11 +10,11 @@ VEX Tournament Manager display source plugin for OBS Studio.
 
 Please note this is *unofficial software*. It is not supported or endorsed by VEX Robotics or the REC Foundation in any way. Please do not contact VEX or RECF with any issues related to this plugin.
 
-If you think you have found a bug, please [log an issue](https://gitlab.com/dwabtech/vextm-obs-source/issues). We request that you do not use the issue tracker for support requests.
+If you think you have found a bug, please [log an issue](https://github.com/AlecH92/vextm-obs-source/issues). We request that you do not use the issue tracker for support requests.
 
 ## Download
 
-Binaries for Windows 64 bit are available in the [Releases](https://gitlab.com/dwabtech/vextm-obs-source/-/releases) section.
+Binaries for Windows 64 bit are available in the [Releases](https://github.com/AlecH92/vextm-obs-source/releases) section.
 
 ## Installation
 
