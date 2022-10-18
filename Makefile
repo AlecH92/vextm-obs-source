@@ -5,10 +5,10 @@ SRCS = vextm-source.c \
 	   vextm-thread.c \
 	   colorbars.c
 
-OBS_SOURCE := /mnt/c/Users/Dave/git/obs-studio
+OBS_SOURCE := /mnt/c/Users/Alec/Documents/GitHub/obs-studio
 OBS_INSTALL := '/mnt/c/Program Files/obs-studio'
 
-CC = x86_64-w64-mingw32-gcc
+CC = x86_64-w64-mingw32-gcc-posix
 STRIP = x86_64-w64-mingw32-strip
 
 CFLAGS = -m64 -Wall
